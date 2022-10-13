@@ -5,8 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Intake_In;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.SubsystemsInstance;
 
@@ -17,9 +17,8 @@ import frc.robot.subsystems.SubsystemsInstance;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
   private SubsystemsInstance subsystemsInst;
-  
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -56,9 +55,7 @@ public class Robot extends TimedRobot {
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
-  public void autonomousInit() {
-    
-  }
+  public void autonomousInit() {}
 
   /** This function is called periodically during autonomous. */
   @Override
@@ -76,7 +73,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    CommandScheduler.getInstance().schedule(new Intake_In());
+  }
 
   @Override
   public void testInit() {

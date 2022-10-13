@@ -5,20 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Utilities;
 import frc.robot.subsystems.SubsystemsInstance;
 
-public class TankDrive extends CommandBase {
-  /** Creates a new TankDrive. */
+public class Intake_In extends CommandBase {
   private SubsystemsInstance inst;
   private RobotContainer m_robotContainer;
   
-  public TankDrive() {
+  /** Creates a new Intake_In. */
+  public Intake_In() {
     // Use addRequirements() here to declare subsystem dependencies.
     inst = SubsystemsInstance.getInstance();
-    addRequirements(inst.m_driveTrain);
+    addRequirements(inst.m_intake);
 
     m_robotContainer = RobotContainer.getInstance();
   }
@@ -30,23 +28,27 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double triggerVal = m_robotContainer.GetDriverRawAxis(Constants.RIGHT_TRIGGER) - m_robotContainer.GetDriverRawAxis(Constants.LEFT_TRIGGER);
-    double stick = Utilities.scale(m_robotContainer.GetDriverRawAxis(Constants.LEFT_STICK_X), Constants.TURNING_RATE);
-
-    inst.m_driveTrain.setLeftMotors(triggerVal + stick);
-    inst.m_driveTrain.setRightMotors(triggerVal - stick);
+    if (m_robotContainer.GetRightBumperPressed(6)) {
+      inst.m_intake.setIntakeMotor(-1.0);
+    }
+    if (m_robotContainer.GetRightBumperReleased(6)) {
+      inst.m_intake.setIntakeMotor(0.0);
+    }
+    if (m_robotContainer.GetLeftBumperPressed(5)) {
+      inst.m_intake.setIntakeMotor(1.0);
+    }
+    if (m_robotContainer.GetLeftBumperReleased(5)) {
+      inst.m_intake.setIntakeMotor(0.0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    inst.m_driveTrain.setLeftMotors(0);
-    inst.m_driveTrain.setRightMotors(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

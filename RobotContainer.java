@@ -16,12 +16,13 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private static XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+  private static XboxController driverController;
   private static RobotContainer instance;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+    driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
     configureButtonBindings();
   }
 
@@ -34,6 +35,36 @@ public class RobotContainer {
   public double GetDriverRawAxis(int axis) {
     return driverController.getRawAxis(axis);
   }
+
+  // Intake In
+  public boolean GetRightBumperPressed(int rightBumper) {
+    return driverController.getRawButtonPressed(rightBumper);
+  }
+
+  // Intake In
+  public boolean GetRightBumperReleased(int rightBumper) {
+    return driverController.getRawButtonReleased(rightBumper);
+  }
+
+  // Intake Out
+  public boolean GetLeftBumperPressed(int leftBumper) {
+    return driverController.getRawButtonPressed(leftBumper);
+  }
+
+  // Intake Out
+  public boolean GetLeftBumperReleased(int leftBumper) {
+    return driverController.getRawButtonReleased(leftBumper);
+  }
+
+  // Conveyor In
+  public boolean GetAButtonPressed() { return false; }
+
+  // Conveyor Out
+  public boolean GetXButtonPressed() { return false; }
+
+  // Shooter
+  public boolean GetBButtonPressed() { return false; }
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by

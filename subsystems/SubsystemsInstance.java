@@ -4,18 +4,22 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SubsystemsInstance extends SubsystemBase {
   public DriveTrain m_driveTrain;
+  public Intake m_intake;
 
   private static SubsystemsInstance inst;
+  
   /** Creates a new SubsystemsInstance. */
   private SubsystemsInstance() {
     m_driveTrain = new DriveTrain();
+    m_intake = new Intake();
 
     CommandScheduler.getInstance().registerSubsystem(m_driveTrain);
+    CommandScheduler.getInstance().registerSubsystem(m_intake);
   }
 
   public static SubsystemsInstance getInstance() {
@@ -24,8 +28,8 @@ public class SubsystemsInstance extends SubsystemBase {
     return inst;
   }
 
-  // @Override
-  // public void periodic() {
-  //   // This method will be called once per scheduler run
-  // }
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
 }
